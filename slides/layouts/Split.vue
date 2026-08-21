@@ -11,7 +11,7 @@
 -->
 <template>
   <div class="slidev-layout split-nk !p-0 h-full flex flex-col overflow-hidden">
-    <div class="flex-1 min-h-0 px-20 py-16 grid grid-cols-2">
+    <div class="flex-1 min-h-0 px-24 py-16 grid grid-cols-2">
       <section class="min-h-0 min-w-0 pr-14 flex flex-col justify-center">
         <slot name="left" />
       </section>

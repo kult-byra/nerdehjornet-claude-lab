@@ -3,12 +3,11 @@ theme: default
 title: Claude-verktøy — Nerdehjørnet 21.08.2026
 colorSchema: dark
 highlighter: shiki
-canvasWidth: 1280
+canvasWidth: 1440
 aspectRatio: 16/9
 fonts:
-  sans: Inter
   mono: JetBrains Mono
-  weights: '300,400,500,600,700'
+  weights: '400,700'
   italic: true
   provider: google
 drawings:
@@ -1190,7 +1189,7 @@ TA MED VIDERE
 
 ::subtitle::
 
-<div class="flex flex-col gap-5 text-[19px] leading-[1.45] max-w-[900px]">
+<div class="not-italic font-sans flex flex-col gap-5 text-[19px] leading-[1.5] max-w-[940px]">
   <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">01</span><span><strong class="font-500 text-paper">«ALLTID» er en hook.</strong> Skriver du en regel som må holde hver gang, hører den ikke hjemme i en prompt.</span></div>
   <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">02</span><span><strong class="font-500 text-paper">Vi mangler ikke skills.</strong> Vi mangler hooks, subagenter og målinger. Neste steg er ikke mer prompt.</span></div>
   <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">03</span><span><strong class="font-500 text-paper">Plattformen spiser triksene.</strong> Det som var et smart oppsett i fjor er en innebygd funksjon i år — og derfor kjøper vi ikke ClaudeFast.</span></div>

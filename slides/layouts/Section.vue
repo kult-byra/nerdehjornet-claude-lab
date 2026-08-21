@@ -3,20 +3,20 @@
 -->
 <template>
   <div class="slidev-layout section-nk !p-0 h-full flex flex-col overflow-hidden">
-    <div class="flex-1 min-h-0 flex flex-col justify-center px-20">
-      <div class="min-h-0 font-mono text-xs tracking-[0.18em] uppercase text-sky">
+    <div class="flex-1 min-h-0 flex flex-col justify-center px-30">
+      <div class="min-h-0 kicker">
         <slot name="kicker" />
       </div>
-      <div class="min-h-0 mt-8 text-[68px] leading-[1.05] font-600 tracking-[-0.035em]">
+      <div class="min-h-0 mt-8 display text-[64px] leading-[1.1]">
         <slot />
       </div>
-      <div class="min-h-0 mt-7 max-w-[820px] text-[22px] leading-[1.45] font-300 text-paper/70">
+      <div class="min-h-0 lead mt-7 max-w-[900px] text-[22px] leading-[1.5] text-paper/80">
         <slot name="subtitle" />
       </div>
     </div>
-    <div class="shrink-0 px-20 pb-14">
+    <div class="shrink-0 px-30 pb-14">
       <div class="h-px bg-paper/10" />
-      <div class="mt-5 font-mono text-xs tracking-[0.12em] text-paper/60">
+      <div class="mt-5 font-label text-[13px] tracking-[1px] uppercase text-paper/55">
         <slot name="meta" />
       </div>
     </div>

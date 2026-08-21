@@ -1,5 +1,9 @@
 /*
- * Nordlys Kapital — globale variabler + scopet reset.
+ * Kult Byrå — globale variabler + scopet reset.
+ *
+ * Fontene (Le Monde Journal Std, Circular Pro, Circular Std) er installert
+ * lokalt på maskinen og lastes derfor som system-fonter, ikke webfonter.
+ * Fallback-stakken finnes for enhver maskin som mangler dem.
  *
  * Regel: alt som ikke er en Slidev-variabel bor under `.slidev-layout`.
  * Uscopet global CSS lekker inn i presenter-UI, overview og navigasjons-
@@ -7,19 +11,58 @@
  */
 
 :root {
-  --slidev-theme-primary: #38BDF8;
-  --slidev-code-background: #1E293B;
-  --slidev-code-foreground: #F8FAFC;
-  --slidev-slide-container-background: #0B0F17;
+  --slidev-theme-primary: #DC605C;
+  --slidev-code-background: rgba(239, 228, 214, 0.06);
+  --slidev-code-foreground: #EFE4D6;
+  --slidev-slide-container-background: #243346;
+
+  --kult-serif: 'Le Monde Journal Std', 'Iowan Old Style', Georgia, serif;
+  --kult-sans: 'Circular Pro', -apple-system, 'Helvetica Neue', sans-serif;
+  --kult-label: 'Circular Std', 'Circular Pro', -apple-system, sans-serif;
 }
 
 .slidev-layout {
-  background-color: #0B0F17;
-  color: #F8FAFC;
+  background-color: #243346;
+  color: #EFE4D6;
+  font-family: var(--kult-sans);
   font-weight: 400;
-  font-feature-settings: 'cv05' 1, 'ss03' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Kult-typografien: serif for alt som er tittel eller display, sans for brød.
+ * Layoutene setter størrelse; familien styres her så slides.md slipper å vite om den.
+ */
+.slidev-layout .display,
+.slidev-layout h1,
+.slidev-layout .title-slot {
+  font-family: var(--kult-serif);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/*
+ * Labels i dekket er skrevet som `font-mono … uppercase`. I Kult-systemet er
+ * label Circular Std Bold med 2px sperring — denne regelen fanger dem alle
+ * uten at hver enkelt slide må skrives om. Kode beholder mono.
+ */
+.slidev-layout .font-mono.uppercase {
+  font-family: var(--kult-label);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.slidev-layout .font-label {
+  font-family: var(--kult-label);
+  font-weight: 700;
+}
+
+/* Lead/ingress er kursiv serif i Kult-systemet. */
+.slidev-layout .lead {
+  font-family: var(--kult-serif);
+  font-style: italic;
+  font-weight: 400;
 }
 
 /*
@@ -27,20 +70,24 @@
  * (spesifisitet 0,1,1). Marginer kollapser ikke i flex-kontekst og er den
  * vanligste grunnen til at et dekk renner over. Dobbel klasse gir 0,2,1 så
  * resetten vinner uavhengig av bundle-rekkefølge.
- *
- * Typografi settes deretter på wrapper-elementer i layoutene — de semantiske
- * taggene arver.
  */
 .slidev-layout.slidev-layout :is(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, figure) {
   margin: 0;
   padding: 0;
 }
 
-.slidev-layout.slidev-layout :is(h1, h2, h3, h4, h5, h6) {
+.slidev-layout.slidev-layout :is(h2, h3, h4, h5, h6) {
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
   letter-spacing: inherit;
+  text-transform: none;
+  opacity: 1;
+}
+
+.slidev-layout.slidev-layout h1 {
+  font-size: inherit;
+  line-height: inherit;
   text-transform: none;
   opacity: 1;
 }
@@ -61,7 +108,35 @@
   color: inherit;
 }
 
+.slidev-layout.slidev-layout code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
 /* Tall skal ligge i kolonne — gjelder metrikk, uker og tidslinjenummer. */
 .slidev-layout .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Kult har to vekter, ikke seks: Circular Pro 400 for brød, Circular Std 700
+ * for uthevet. Dekket er skrevet med font-500/600 fra benchmarken — de mappes
+ * hit i stedet for å bli falsk halvfet i en font som ikke har mellomvekter.
+ * Serif-titler er unntatt: de skal stå i 400.
+ */
+.slidev-layout :is(.font-500, .font-600):not(.display):not(.title-slot) {
+  font-family: var(--kult-label);
+  font-weight: 700;
+}
+
+.slidev-layout .font-300 {
+  font-weight: 400;
+}
+
+/* Cover-lead brukes én gang til en punktliste — den skal stå i sans, ikke kursiv serif. */
+.slidev-layout .lead .font-sans,
+.slidev-layout .lead.font-sans {
+  font-family: var(--kult-sans);
+}
+.slidev-layout .lead .not-italic {
+  font-style: normal;
 }
