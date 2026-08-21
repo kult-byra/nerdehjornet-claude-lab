@@ -1,0 +1,24 @@
+{
+  "name": "nerdehjornet-slides",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Nerdehjørnet 21.08.2026 — Claude-verktøy",
+  "scripts": {
+    "dev": "slidev --open false",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "@slidev/cli": "^52.19.0",
+    "@slidev/theme-default": "^0.25.0",
+    "vue": "^3.5.41"
+  },
+  "devDependencies": {
+    "@slidev/types": "^52.19.0"
+  }
+}

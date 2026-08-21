@@ -1,0 +1,67 @@
+/*
+ * Nordlys Kapital — globale variabler + scopet reset.
+ *
+ * Regel: alt som ikke er en Slidev-variabel bor under `.slidev-layout`.
+ * Uscopet global CSS lekker inn i presenter-UI, overview og navigasjons-
+ * chromet, som ikke er en del av dekket.
+ */
+
+:root {
+  --slidev-theme-primary: #38BDF8;
+  --slidev-code-background: #1E293B;
+  --slidev-code-foreground: #F8FAFC;
+  --slidev-slide-container-background: #0B0F17;
+}
+
+.slidev-layout {
+  background-color: #0B0F17;
+  color: #F8FAFC;
+  font-weight: 400;
+  font-feature-settings: 'cv05' 1, 'ss03' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Slidevs base-lag setter marginer og typeskala på .slidev-layout h1/p/li osv.
+ * (spesifisitet 0,1,1). Marginer kollapser ikke i flex-kontekst og er den
+ * vanligste grunnen til at et dekk renner over. Dobbel klasse gir 0,2,1 så
+ * resetten vinner uavhengig av bundle-rekkefølge.
+ *
+ * Typografi settes deretter på wrapper-elementer i layoutene — de semantiske
+ * taggene arver.
+ */
+.slidev-layout.slidev-layout :is(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, figure) {
+  margin: 0;
+  padding: 0;
+}
+
+.slidev-layout.slidev-layout :is(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  opacity: 1;
+}
+
+.slidev-layout.slidev-layout :is(ul, ol) {
+  list-style: none;
+}
+
+.slidev-layout.slidev-layout :is(p, li) {
+  line-height: inherit;
+}
+
+.slidev-layout.slidev-layout blockquote {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Tall skal ligge i kolonne — gjelder metrikk, uker og tidslinjenummer. */
+.slidev-layout .tabular {
+  font-variant-numeric: tabular-nums;
+}
