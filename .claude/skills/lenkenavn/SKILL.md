@@ -1,17 +1,16 @@
 ---
 name: lenkenavn
-description: Bruk denne når noen skal lage en URL, en slug, et lenkenavn, et filnavn eller en permalink av en norsk tittel eller overskrift. Trigger på "slug", "lenkenavn", "url av denne tittelen", "hva skal denne siden hete i URL-en", "filnavn av".
+description: Bruk ALLTID denne når noen ber om en slug, slugs, URL-slug, lenkenavn, permalink, filnavn eller "hva skal denne siden hete i URL-en" av en tittel eller overskrift — også når de bare sier "lag slugs av disse". Aldri lag en slug for hånd.
 ---
 
 # Lenkenavn (slug)
 
-**Ikke gjett. Kjør scriptet.**
+**Ikke gjett. Kjør scriptet.** Én gang per tittel:
 
 ```bash
 .claude/skills/lenkenavn/lag-slug.sh "<tittelen>"
 ```
 
 Scriptet håndterer æ/ø/å, `&` → `og`, tegnsetting og doble bindestreker likt hver gang.
-Skal du lage flere: kjør det én gang per tittel.
 
-Rapporter output ordrett. Ikke pynt på resultatet etterpå.
+Rapporter output ordrett. Ikke pynt på resultatet etterpå, og ikke tilby alternative varianter.

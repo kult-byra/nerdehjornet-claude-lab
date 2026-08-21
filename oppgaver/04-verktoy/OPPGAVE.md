@@ -13,19 +13,31 @@
 lag URL-slugs av disse tre: "Ærlig talt: Blåbærsyltetøy & Co. (2026)", "Nytt kontor på Grünerløkka!", "Design & Teknologi — 10 år"
 ```
 
-**Se etter:** Den kjørte `lag-slug.sh` i stedet for å finne på slugs selv. Åpne
-[`.claude/skills/lenkenavn/`](../../.claude/skills/lenkenavn/) og se hvorfor: `SKILL.md` sier bare
-«ikke gjett, kjør scriptet» — resten er 8 linjer bash.
+Se på svaret. **To ting kan skje:**
 
-### 2. Test at det faktisk er deterministisk
-Kjør samme prompt tre ganger med `/clear` mellom. Samme svar hver gang, tegn for tegn.
-Prøv så å be Claude lage slugs **uten** scriptet (`ikke bruk scriptet, gjør det selv`). Sammenlign æ/ø/å-håndteringen.
+- **Den kjørte `lag-slug.sh`.** Da fikk du samme svar som alle andre i rommet, tegn for tegn.
+- **Den gjettet selv.** Da fikk du noe som *ser* riktig ut — og som blir litt annerledes neste gang.
+
+Begge deler er et funn. Sammenlign med sidemannen: har dere nøyaktig samme slugs?
+
+### 2. Tving fram scriptet
+```
+bruk lenkenavn-skillen og kjør scriptet — ikke gjett
+```
+
+Kjør så samme prompt tre ganger med `/clear` mellom. **Se etter:** identisk svar hver gang.
+
+### 3. Se hvorfor
+Åpne [`.claude/skills/lenkenavn/`](../../.claude/skills/lenkenavn/). `SKILL.md` er fire linjer som sier
+«ikke gjett, kjør scriptet». Resten er 8 linjer bash i `lag-slug.sh`.
 
 ---
 
 ## Hva dette beviser
 
-**Script i en skill slår instrukser om script.** Alt som skal bli likt hver gang bør være kode Claude kjører — ikke regler Claude følger.
+**Script i en skill slår instrukser om script — men bare når skillen faktisk trigges.**
+Derfor er `description` og «ikke gjett»-linja like viktige som koden. Alt som skal bli likt hver gang
+bør være kode Claude *kjører*, ikke regler Claude *følger*.
 
 ---
 

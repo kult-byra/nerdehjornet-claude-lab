@@ -165,15 +165,14 @@ Fire lag med instrukser
 
 <div class="min-h-0">
   <div class="text-[17px] leading-[1.5] font-300 text-paper/70 max-w-[900px]">
-    Alle lastes hver økt, og de stables. Dette er «systemprompten» din for prosjektet.
-    <Verify /> <span class="text-paper/45">stiene under er fra fjorårets dekk, ikke kryssjekket i dag</span>
+    Alle lastes hver økt, i denne rekkefølgen — bredest scope først. De overstyrer ikke hverandre, de stables i konteksten.
   </div>
 
   <div class="mt-8 grid grid-cols-4 gap-4">
     <div class="card">
       <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Managed</div>
-      <div class="mt-2 font-mono text-[12px] text-paper/50 break-all">/etc/claude-code/CLAUDE.md</div>
-      <div class="mt-3 text-[15px] leading-[1.45] font-300 text-paper/75">Policy IT setter. Kan ikke overstyres.</div>
+      <div class="mt-2 font-mono text-[12px] text-paper/50 break-all">/Library/Application Support/<wbr />ClaudeCode/CLAUDE.md</div>
+      <div class="mt-3 text-[15px] leading-[1.45] font-300 text-paper/75">Policy IT setter. Kan ikke ekskluderes av noen.</div>
     </div>
     <div class="card">
       <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">User</div>
@@ -182,7 +181,7 @@ Fire lag med instrukser
     </div>
     <div class="card">
       <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Project</div>
-      <div class="mt-2 font-mono text-[12px] text-paper/50 break-all">./CLAUDE.md</div>
+      <div class="mt-2 font-mono text-[12px] text-paper/50 break-all">./CLAUDE.md eller<br />./.claude/CLAUDE.md</div>
       <div class="mt-3 text-[15px] leading-[1.45] font-300 text-paper/75">Arkitektur, byggkommandoer, teamstandarder. I git.</div>
     </div>
     <div class="card">
@@ -528,8 +527,8 @@ layout: Split
 Slack, Notion, Sanity, Figma, kalenderen. Serveren tilbyr verktøy Claude kan kalle — den vet alt om <em>hva</em> som er mulig, og ingenting om hvordan dere gjør ting.
 </div>
 <div class="min-h-0 mt-7 card">
-  <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Kostnaden</div>
-  <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Verktøyskjemaene tar plass i kontekstvinduet. Mange servere med mange verktøy = mindre plass til jobben. <Verify /> <span class="text-paper/45">mekanikken varierer med versjon</span></div>
+  <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Kostnaden — mindre enn du tror</div>
+  <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Med <strong class="font-500 text-paper">tool search</strong> (på som standard) lastes bare verktøynavn og server-instruksjoner ved oppstart. Selve definisjonene hentes når Claude trenger dem — samme idé som progressiv avsløring i skills.</div>
 </div>
 
 ::right::
@@ -1050,3 +1049,155 @@ Ta det opp igjen hvis noen har et konkret tilfelle der ventetid — ikke oppsett
 <!--
 Kort slide med vilje. Ikke argumentér mot noen som ikke er i rommet — pek på hva vi heller bør bruke timen på.
 -->
+
+---
+layout: Content
+---
+
+::kicker::
+
+HEURISTIKKER · 1 AV 2
+
+::title::
+
+Jeg vil X → bruk Y
+
+<div class="min-h-0 grid grid-cols-2 gap-x-14 gap-y-0">
+  <div class="min-w-0">
+    <div class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-[13px] text-[16px] leading-[1.35]">
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1">Jeg vil…</div>
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1 text-right">Bruk</div>
+      <div class="font-300 text-paper/80">Instrukser alle alltid trenger</div><div class="font-mono text-[14px] text-emerald text-right">CLAUDE.md</div>
+      <div class="font-300 text-paper/80">Regler som bare gjelder visse filer</div><div class="font-mono text-[14px] text-emerald text-right">rules + paths</div>
+      <div class="font-300 text-paper/80">En arbeidsflyt jeg gjentar</div><div class="font-mono text-[14px] text-emerald text-right">Skill</div>
+      <div class="font-300 text-paper/80">Et oppslagsverk Claude kan slå i</div><div class="font-mono text-[14px] text-emerald text-right">Skill med filer</div>
+      <div class="font-300 text-paper/80">Noe som har ett riktig svar</div><div class="font-mono text-[14px] text-emerald text-right">Script i en skill</div>
+      <div class="font-300 text-paper/80">Koble til Slack, Sanity, Notion</div><div class="font-mono text-[14px] text-emerald text-right">MCP</div>
+    </div>
+  </div>
+
+  <div class="min-w-0">
+    <div class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-[13px] text-[16px] leading-[1.35]">
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1">Jeg vil…</div>
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1 text-right">Bruk</div>
+      <div class="font-300 text-paper/80">Blokkere en farlig kommando</div><div class="font-mono text-[14px] text-emerald text-right">PreToolUse-hook</div>
+      <div class="font-300 text-paper/80">Formatere etter hver endring</div><div class="font-mono text-[14px] text-emerald text-right">PostToolUse-hook</div>
+      <div class="font-300 text-paper/80">Nekte «ferdig» før testene er grønne</div><div class="font-mono text-[14px] text-emerald text-right">Stop-hook / /goal</div>
+      <div class="font-300 text-paper/80">Gi Claude dagens dato som fakta</div><div class="font-mono text-[14px] text-emerald text-right">UserPromptSubmit-hook</div>
+      <div class="font-300 text-paper/80">Hindre lesing av hemmeligheter</div><div class="font-mono text-[14px] text-emerald text-right">permissions.deny</div>
+      <div class="font-300 text-paper/80">Menneske i loopen før publisering</div><div class="font-mono text-[14px] text-emerald text-right">permissions.ask</div>
+    </div>
+  </div>
+</div>
+
+::foot::
+
+Merk hvor mange av linjene til høyre er garantier — og hvor ofte vi i dag løser dem med en setning i en prompt
+
+---
+layout: Content
+---
+
+::kicker::
+
+HEURISTIKKER · 2 AV 2
+
+::title::
+
+Jeg vil X → bruk Y
+
+<div class="min-h-0 grid grid-cols-2 gap-x-14">
+  <div class="min-w-0">
+    <div class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-[13px] text-[16px] leading-[1.35]">
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1">Jeg vil…</div>
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1 text-right">Bruk</div>
+      <div class="font-300 text-paper/80">Auto-godkjenne trygge handlinger</div><div class="font-mono text-[14px] text-emerald text-right">auto mode</div>
+      <div class="font-300 text-paper/80">Lese 60 filer for å svare på ett spørsmål</div><div class="font-mono text-[14px] text-emerald text-right">Subagent</div>
+      <div class="font-300 text-paper/80">Vurdering fra noen uten min kontekst</div><div class="font-mono text-[14px] text-emerald text-right">Subagent, flere</div>
+      <div class="font-300 text-paper/80">La den jobbe til noe faktisk er sant</div><div class="font-mono text-[14px] text-emerald text-right">/goal</div>
+    </div>
+  </div>
+
+  <div class="min-w-0">
+    <div class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-[13px] text-[16px] leading-[1.35]">
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1">Jeg vil…</div>
+      <div class="font-mono text-[11px] tracking-[0.16em] uppercase text-sky pb-1 text-right">Bruk</div>
+      <div class="font-300 text-paper/80">Styre rekkefølgen på mange agenter</div><div class="font-mono text-[14px] text-emerald text-right">Workflow</div>
+      <div class="font-300 text-paper/80">Dele oppsettet med teamet</div><div class="font-mono text-[14px] text-emerald text-right">Plugin</div>
+      <div class="font-300 text-paper/80">Kjøre det uten meg til stede</div><div class="font-mono text-[14px] text-emerald text-right">claude -p i CI</div>
+      <div class="font-300 text-paper/80">Gjøre det til en tjeneste</div><div class="font-mono text-[14px] text-emerald text-right">Agent SDK</div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-10 border-l-2 border-emerald pl-6 max-w-[1000px]">
+  <div class="text-[24px] leading-[1.35] font-500 text-emerald">«ALLTID» er en hook.</div>
+  <div class="mt-2 text-[17px] leading-[1.45] font-300 text-paper/75">Hver gang en instruks sier ALLTID eller SKAL ALDRI, har noen skrevet et håp der de trengte en garanti.</div>
+</div>
+
+---
+layout: Content
+---
+
+::kicker::
+
+RESTEN AV ØKTA
+
+::title::
+
+Nå bygger dere noe eget
+
+<div class="min-h-0">
+  <div class="grid grid-cols-3 gap-6">
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Steg 1</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Finn irritasjonen</div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Noe du gjør ofte og alltid gjør litt ulikt. En tekst du skriver om. En sjekk du glemmer. Et skjema du fyller likt hver gang.</div>
+    </div>
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Steg 2</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Velg klossen</div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Skal Claude <span class="text-sky">bestemme</span> at det skjer, eller skal koden <span class="text-emerald">garantere</span> det? Instruks, garanti eller delegering.</div>
+    </div>
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Steg 3</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Bygg i ~30 min</div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Det trenger ikke funke. Det som ikke funket er like interessant å vise fram som det som funket.</div>
+    </div>
+  </div>
+
+  <div class="mt-9 flex items-center gap-8">
+    <div class="card !py-4 !px-6">
+      <div class="font-mono text-[15px] text-paper/85">cp din-egen/MAL.md din-egen/fornavn-hva-det-er.md</div>
+    </div>
+    <div class="text-[17px] leading-[1.4] font-300 text-paper/70">Tre spørsmål i malen: <span class="text-paper">problemet mitt</span> · <span class="text-paper">klossen jeg valgte</span> · <span class="text-paper">funket det?</span></div>
+  </div>
+</div>
+
+::foot::
+
+Show & tell til slutt — to minutter hver, ingen forberedelse
+
+---
+layout: Cover
+---
+
+<h1>Takk 🧱</h1>
+
+::badge::
+
+TA MED VIDERE
+
+::subtitle::
+
+<div class="flex flex-col gap-5 text-[19px] leading-[1.45] max-w-[900px]">
+  <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">01</span><span><strong class="font-500 text-paper">«ALLTID» er en hook.</strong> Skriver du en regel som må holde hver gang, hører den ikke hjemme i en prompt.</span></div>
+  <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">02</span><span><strong class="font-500 text-paper">Vi mangler ikke skills.</strong> Vi mangler hooks, subagenter og målinger. Neste steg er ikke mer prompt.</span></div>
+  <div class="flex gap-5"><span class="shrink-0 font-mono text-[13px] text-sky pt-[6px]">03</span><span><strong class="font-500 text-paper">Plattformen spiser triksene.</strong> Det som var et smart oppsett i fjor er en innebygd funksjon i år — og derfor kjøper vi ikke ClaudeFast.</span></div>
+</div>
+
+::meta::
+
+<div>Repoet blir liggende — lek videre</div>
+<div class="w-px h-3 bg-paper/10"></div>
+<div>Neste gang: vi bygger publiseringsguarden live</div>
