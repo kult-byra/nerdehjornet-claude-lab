@@ -72,3 +72,15 @@ Se øvelse 6 for workflows.
 - En review-agent som leser diffen din før du pusher
 - En «finn alle steder vi bruker gammel logo»-agent
 - En som leser et helt møtereferat og bare gir deg dine egne action points
+
+## Hvilken modell skal subagenten din ha?
+
+Se `model:`-linja i [`arkivgraver.md`](../../.claude/agents/arkivgraver.md). Den står på `haiku`. Hvorfor:
+
+| Oppgaven er… | Modell | Hvorfor |
+|---|---|---|
+| mekanisk — søk, grep, uthenting, formatering | `haiku` | Ett riktig svar. Raskest til første token, billigst. |
+| vurdering — språk, review, «er dette bra» | `sonnet` (+ `effort: low`) | Haiku bommer på skjønn. Low effort gir litt av farten tilbake. |
+| dyrt å ta feil — arkitektur, kundetekst, kritikk | `opus` | En dårlig kjøring koster deg en runde til. |
+
+Bytt `model:` i fila og kjør øvelsen på nytt. Forskjellen i ventetid er det du kjenner; forskjellen i svar er det du merker på oppgave 4.
