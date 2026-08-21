@@ -14,13 +14,11 @@ curl -fsSL https://claude.ai/install.sh | bash
 ```
 Ta en slurk kaffe. Når den er ferdig: **lukk terminalvinduet og åpne et nytt.**
 
-**2. Hent repoet** (det er privat, så du trenger `gh` for å komme inn)
+**2. Hent repoet**
 ```bash
-brew install gh && gh auth login
-gh repo clone kult-byra/nerdehjornet-claude-lab
+git clone https://github.com/kult-byra/nerdehjornet-claude-lab.git
 cd nerdehjornet-claude-lab
 ```
-På `gh auth login`: GitHub.com → HTTPS → ja → Login with a web browser. Lim inn koden den viser.
 
 **3. Start Claude**
 ```bash
@@ -36,7 +34,6 @@ Får du et svar? Da er du klar. 🎉
 
 > **Sier den «command not found: claude»?** Du glemte å åpne nytt terminalvindu. Gjør det, prøv igjen.
 > **Sier den «git: command not found»?** Kjør `xcode-select --install`, godta, vent, prøv igjen.
-> **Sier den «Repository not found»?** Du er ikke logget inn på GitHub, eller ikke medlem av kult-byra. Kjør `gh auth login`, eller si fra i kanalen.
 > **Står den og spør om hooks/settings?** Svar ja — det er repoets egne øvelser (se oppgave 03).
 
 ---
