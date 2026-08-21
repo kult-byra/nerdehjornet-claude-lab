@@ -670,3 +670,383 @@ Test dette nå
     <Idea>En agent som leser kundens gamle nettside og oppsummerer tonen deres</Idea>
   </Ideas>
 </div>
+
+---
+layout: Section
+---
+
+::kicker::
+
+DEL 6 AV 9
+
+# Loops & workflows
+
+::subtitle::
+
+Det som gjør Claude til en agent og ikke en chat: den kjører i sløyfe til noe er sant. Spørsmålet er hvem som bestemmer når den er ferdig.
+
+::meta::
+
+agentic loop · /goal · auto mode · dynamiske workflows
+
+---
+layout: Content
+---
+
+::kicker::
+
+LOOPS · 1
+
+::title::
+
+Kjernesløyfen — og de tre knappene på den
+
+<div class="min-h-0">
+  <div class="flex items-center gap-4 font-mono text-[15px] text-paper/70">
+    <span class="card !py-3 !px-5">resonnér</span><span class="text-emerald">→</span>
+    <span class="card !py-3 !px-5">kall verktøy</span><span class="text-emerald">→</span>
+    <span class="card !py-3 !px-5">les resultat</span><span class="text-emerald">→</span>
+    <span class="card !py-3 !px-5">neste steg</span>
+    <span class="text-emerald text-[20px]">↺</span>
+  </div>
+
+  <div class="mt-9 grid grid-cols-3 gap-6">
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Hvem stopper den</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Du</div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Standard. Claude spør før verktøykall, og gir seg når den mener den er ferdig.</div>
+    </div>
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Hvem stopper den</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Et mål — <code class="font-mono text-[17px] text-emerald">/goal</code></div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Etter hver vending dømmer en rask modell: <strong class="font-500 text-paper">Met</strong>, <strong class="font-500 text-paper">Not yet met</strong> eller <strong class="font-500 text-paper">Impossible</strong>. Ikke i mål = jobb videre.</div>
+    </div>
+    <div class="card">
+      <div class="font-mono text-[11px] tracking-[0.14em] uppercase text-sky">Hvem slipper den fram</div>
+      <div class="mt-3 text-[19px] leading-[1.3] font-600">Auto mode</div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/70">Ruter hvert verktøykall gjennom en klassifiserer som stopper det irreversible, destruktive eller utadrettede.</div>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-2 gap-6">
+    <div class="border-l-2 border-emerald pl-5">
+      <div class="text-[16px] leading-[1.45] font-300 text-paper/85">Evaluatoren <strong class="font-500 text-paper">kjører ikke verktøy og leser ikke filer</strong> — den dømmer bare det som står i samtalen. Skriv derfor mål Claudes egen output kan bevise: «npm test exits 0».</div>
+    </div>
+    <div class="border-l-2 border-paper/20 pl-5">
+      <div class="text-[16px] leading-[1.45] font-300 text-paper/70">Auto mode er ikke «ingen stopp»: dine <code class="font-mono text-[14px]">deny</code>- og <code class="font-mono text-[14px]">ask</code>-regler evalueres <strong class="font-500 text-paper">før</strong> klassifisereren og vinner alltid.</div>
+    </div>
+  </div>
+</div>
+
+::foot::
+
+Ett mål per sesjon · `/goal` uten argument = status · `/goal clear` = nullstill · endrer ikke tillatelsesmodus
+
+<!--
+/goal er teknisk sett bare en Stop-hook med en dommer på. Si det — da skjønner de at klossene er de samme hele veien.
+-->
+
+---
+layout: Content
+---
+
+::kicker::
+
+LOOPS · 2
+
+::title::
+
+Workflows: når planen skal ut av kontekstvinduet
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0">
+    <div class="text-[17px] leading-[1.55] font-300 text-paper/75">
+      Et JavaScript-script som orkestrerer subagenter. Claude skriver scriptet, en runtime kjører det i bakgrunnen. Primitivene er <code class="font-mono text-[15px] text-emerald">agent()</code>, <code class="font-mono text-[15px] text-emerald">parallel()</code>, <code class="font-mono text-[15px] text-emerald">pipeline()</code> og <code class="font-mono text-[15px] text-emerald">phase()</code>.
+    </div>
+    <div class="mt-6 border-l-2 border-emerald pl-6">
+      <div class="text-[19px] leading-[1.35] font-500 text-emerald">Mellomresultatene lever i script-variabler, ikke i Claudes kontekstvindu.</div>
+      <div class="mt-2 text-[15px] leading-[1.45] font-300 text-paper/70">Derfor skalerer det til titalls agenter uten at noe drukner.</div>
+    </div>
+    <div class="mt-6 text-[15px] leading-[1.5] font-300 text-paper/60">
+      Maks 16 samtidige, 1 000 per kjøring. Ingen brukerinput underveis. Prøv den innebygde <code class="font-mono text-[14px]">/deep-research</code> først.
+    </div>
+  </div>
+
+  <div class="min-w-0">
+    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-sky">Hvem holder planen</div>
+    <div class="mt-4 flex flex-col gap-3">
+      <div class="card !py-4">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="text-[17px] font-500">Skills &amp; subagenter</span>
+          <span class="font-mono text-[13px] text-paper/50">noen få per vending</span>
+        </div>
+        <div class="mt-1 text-[15px] font-300 text-paper/65">Claude, vending for vending</div>
+      </div>
+      <div class="card !py-4">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="text-[17px] font-500">Agent teams</span>
+          <span class="font-mono text-[13px] text-paper/50">en håndfull peers</span>
+        </div>
+        <div class="mt-1 text-[15px] font-300 text-paper/65">Lead-agenten, vending for vending</div>
+      </div>
+      <div class="card !py-4 border-emerald/40 bg-emerald/5">
+        <div class="flex items-baseline justify-between gap-4">
+          <span class="text-[17px] font-500 text-emerald">Workflows</span>
+          <span class="font-mono text-[13px] text-emerald/80">titalls til hundrevis</span>
+        </div>
+        <div class="mt-1 text-[15px] font-300 text-paper/70">Scriptet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+layout: Content
+---
+
+::kicker::
+
+LOOPS · 3
+
+::title::
+
+Test dette nå — den beste demoen i repoet
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0 flex flex-col gap-6">
+    <TryNow path="oppgaver/06-loops/">
+      Mappa har tre bevisst ødelagte tester. Kjør:
+      <div class="mt-3 font-mono text-[15px] leading-[1.6] text-paper">/goal npm test exits 0</div>
+      <div class="mt-2">…og så: «få testene grønne». Len deg tilbake.
+      <div class="mt-3 text-emerald">Den gir seg ikke før betingelsen er sann.</div></div>
+    </TryNow>
+    <div class="card border-emerald/30">
+      <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-emerald">Konkurranse</div>
+      <div class="mt-3 text-[16px] leading-[1.5] font-300 text-paper/85">Første grønne kjøring vinner. Og: klarer du å skrive et mål som Claude ikke klarer å jukse seg forbi?</div>
+    </div>
+  </div>
+
+  <Ideas>
+    <Idea><code class="font-mono text-[14px]">/goal</code> «alle lenker i dokumentet svarer 200»</Idea>
+    <Idea><code class="font-mono text-[14px]">/goal</code> «ingen TypeScript-feil igjen i prosjektet»</Idea>
+    <Idea><code class="font-mono text-[14px]">/goal</code> «alle bilder har alt-tekst»</Idea>
+    <Idea>En workflow som leser 40 kundesider og finner alle som bryter én regel</Idea>
+    <Idea>En workflow som gjør research på et tema fra mange kilder samtidig</Idea>
+    <Idea>Auto mode på et opprydningsoppdrag du ikke gidder å klikke deg gjennom</Idea>
+  </Ideas>
+</div>
+
+---
+layout: Section
+---
+
+::kicker::
+
+DEL 7 AV 9
+
+# Pakking
+
+::subtitle::
+
+Alt vi har sett på i dag — skills, agenter, hooks, MCP — kan legges i én mappe og deles med hele byrået.
+
+::meta::
+
+plugins · marketplaces
+
+---
+layout: Content
+---
+
+::kicker::
+
+PAKKING · 1
+
+::title::
+
+En plugin er alle klossene i én eske
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0">
+    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-sky">Kan inneholde</div>
+    <div class="mt-4 grid grid-cols-2 gap-x-8 gap-y-[10px] text-[16px] leading-[1.4] font-300 text-paper/80">
+      <div class="flex gap-3"><span class="text-emerald">→</span>skills</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>agents</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>hooks</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>MCP-servere</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>LSP-servere</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>monitors</div>
+      <div class="flex gap-3"><span class="text-emerald">→</span>themes</div>
+    </div>
+
+    <div class="mt-8 text-[16px] leading-[1.55] font-300 text-paper/70">
+      Skills fra en plugin får navnerom: <code class="font-mono text-[15px] text-emerald">/mitt-plugin:review</code>. De kolliderer aldri med dine egne.
+    </div>
+  </div>
+
+  <div class="min-w-0">
+    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-sky">Hvorfor det betyr noe hos oss</div>
+    <div class="mt-4 text-[17px] leading-[1.5] font-300 text-paper/80">
+      Akkurat nå bor de gode oppsettene på hver sin maskin. En plugin er forskjellen på at <em>du</em> har en god hook, og at <strong class="font-500 text-paper">Kult</strong> har den.
+    </div>
+    <div class="mt-7 border-l-2 border-emerald pl-6">
+      <div class="text-[18px] leading-[1.4] font-500 text-emerald">Lab-repoet du sitter i er sin egen marketplace.</div>
+      <div class="mt-2 text-[15px] leading-[1.45] font-300 text-paper/70">Du kan installere en plugin fra det, akkurat nå.</div>
+    </div>
+  </div>
+</div>
+
+---
+layout: Content
+---
+
+::kicker::
+
+PAKKING · 2
+
+::title::
+
+Test dette nå
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0 flex flex-col gap-6">
+    <TryNow path="oppgaver/07-pakking/">
+      Kjør <code class="font-mono text-[14px]">/plugin</code>, legg til dette repoet som marketplace og installer plugin-en som ligger i det.
+      Se skillen dukke opp med navnerom foran.
+      <div class="mt-3 text-emerald">Det du bygde i dag kan være installert hos alle i morgen.</div>
+    </TryNow>
+  </div>
+
+  <Ideas>
+    <Idea>En Kult-plugin med tone of voice, tilbudsmal og kundekommunikasjons-skills</Idea>
+    <Idea>En Next.js + Sanity-plugin med våre konvensjoner, hooks og en review-agent</Idea>
+    <Idea>En onboarding-plugin: alt en ny kollega trenger, installert på ett minutt</Idea>
+    <Idea>En prosjektleder-plugin: statusrapport, referat, ClickUp-formatering</Idea>
+    <Idea>En designer-plugin: alt-tekst-sjekk, kontrastsjekk, eksportrutiner</Idea>
+  </Ideas>
+</div>
+
+---
+layout: Section
+---
+
+::kicker::
+
+DEL 8 AV 9
+
+# Utenfor terminalen
+
+::subtitle::
+
+Claude uten chat. Ett kall, ett svar, videre i scriptet — samme motor som Agent SDK-pakkene i Python og TypeScript.
+
+::meta::
+
+claude -p · CI · Agent SDK
+
+---
+layout: Content
+---
+
+::kicker::
+
+UTENFOR TERMINALEN · 1
+
+::title::
+
+`claude -p` er Agent SDK-et, bare fra kommandolinja
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0">
+    <div class="card">
+      <div class="font-mono text-[14px] leading-[1.75] text-paper/85 whitespace-pre-wrap">claude -p "oppsummer README til tre punkter" &gt; notat.md</div>
+    </div>
+    <div class="mt-6 font-mono text-[11px] tracking-[0.18em] uppercase text-sky">Flagg du kommer til å trenge</div>
+    <ul class="mt-4 flex flex-col gap-[8px] font-mono text-[14px] leading-[1.45] text-paper/75">
+      <li>--output-format text | json | stream-json</li>
+      <li>--json-schema</li>
+      <li>--allowedTools "Bash,Read,Edit"</li>
+      <li>--permission-mode dontAsk</li>
+      <li>--continue / --resume &lt;id&gt;</li>
+      <li>--append-system-prompt</li>
+    </ul>
+  </div>
+
+  <div class="min-w-0">
+    <div class="card border-emerald/30 bg-emerald/5">
+      <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-emerald">Det viktigste flagget i CI</div>
+      <div class="mt-3 font-mono text-[17px] text-paper">--bare</div>
+      <div class="mt-3 text-[16px] leading-[1.5] font-300 text-paper/85">
+        Hopper over auto-oppdagelse av hooks, skills, subagenter, plugins, MCP, auto-minne og CLAUDE.md.
+        <strong class="font-500 text-paper"> Samme resultat på hver maskin.</strong>
+      </div>
+      <div class="mt-3 text-[15px] leading-[1.5] font-300 text-paper/65">
+        Uten den kjører <code class="font-mono text-[13px]">-p</code> hooks fra prosjektets <code class="font-mono text-[13px]">.claude/settings.json</code> — og <code class="font-mono text-[13px]">-p</code> spør aldri om du stoler på mappa.
+      </div>
+    </div>
+    <div class="mt-6 text-[15px] leading-[1.5] font-300 text-paper/60">
+      Låst CI: <code class="font-mono text-[14px]">--permission-mode dontAsk</code>. Exit 0 ved suksess, 143 ved SIGTERM.
+    </div>
+  </div>
+</div>
+
+---
+layout: Content
+---
+
+::kicker::
+
+UTENFOR TERMINALEN · 2
+
+::title::
+
+Test dette nå
+
+<div class="min-h-0 grid grid-cols-2 gap-12">
+  <div class="min-w-0 flex flex-col gap-6">
+    <TryNow path="oppgaver/08-utenfor-terminalen/">
+      Ut av Claude. I ditt vanlige terminalvindu:
+      <div class="mt-3 font-mono text-[15px] leading-[1.6] text-paper">claude -p "oppsummer README til tre punkter" &gt; notat.md</div>
+      <div class="mt-3 text-emerald">Åpne notat.md. Ingen chat, bare et svar i en fil.</div>
+    </TryNow>
+  </div>
+
+  <Ideas>
+    <Idea>En cron som oppsummerer #kultprat hver fredag og legger det i en note</Idea>
+    <Idea><code class="font-mono text-[14px]">claude -p</code> i et build-script som skriver release notes fra git-loggen</Idea>
+    <Idea>En GitHub Action som kommenterer på PR-er som mangler tester</Idea>
+    <Idea>Et script som lager alt-tekster for alle bilder i en mappe</Idea>
+    <Idea>Et script som sjekker om en kundetekst bryter språkreglene våre, og feiler bygget hvis den gjør det</Idea>
+    <Idea>En ukesrapport som genereres av seg selv mandag morgen</Idea>
+  </Ideas>
+</div>
+
+---
+layout: Content
+---
+
+::kicker::
+
+DEL 9 AV 9
+
+::title::
+
+ClaudeFast — skal vi kjøpe?
+
+<div class="min-h-0 flex flex-col justify-center">
+  <div class="text-[92px] leading-[1] font-600 tracking-[-0.04em] text-emerald">Nei.</div>
+  <div class="mt-8 max-w-[900px] text-[21px] leading-[1.5] font-300 text-paper/75">
+    Konklusjonen står fra forrige gjennomgang, og ingenting siden har endret den. Flaskehalsen vår er ikke hvor fort modellen skriver — det er hvor godt den er satt opp.
+  </div>
+  <div class="mt-9 border-l-2 border-emerald pl-6 max-w-[900px]">
+    <div class="text-[22px] leading-[1.35] font-500 text-emerald">Én time på en hook du faktisk trenger, slår all fart i verden.</div>
+  </div>
+</div>
+
+::foot::
+
+Ta det opp igjen hvis noen har et konkret tilfelle der ventetid — ikke oppsett — er problemet
+
+<!--
+Kort slide med vilje. Ikke argumentér mot noen som ikke er i rommet — pek på hva vi heller bør bruke timen på.
+-->

@@ -1,0 +1,6 @@
+{
+  "name": "kult-lab",
+  "description": "Klossene fra Nerdehjørnet: en skill og en subagent, pakket sammen",
+  "version": "0.1.0",
+  "author": { "name": "Kult" }
+}

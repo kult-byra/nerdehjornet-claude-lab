@@ -1,0 +1,14 @@
+{
+  "name": "nerdehjornet",
+  "owner": { "name": "Kult" },
+  "metadata": {
+    "description": "Lekegrindens egen plugin-markedsplass"
+  },
+  "plugins": [
+    {
+      "name": "kult-lab",
+      "source": "./plugins/kult-lab",
+      "description": "Klossene fra Nerdehjørnet, pakket som én installerbar enhet"
+    }
+  ]
+}
