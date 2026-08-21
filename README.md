@@ -38,20 +38,24 @@ Får du et svar? Da er du klar. 🎉
 
 ---
 
-## Øvelsene
+## Velg én øvelse
 
-Én ting per øvelse. Under 5 minutter hver. Gjør dem i rekkefølge første gang.
+**Du skal ikke gjøre alle.** Velg den som svarer på noe du faktisk lurer på. Hver tar under fem minutter, og de er uavhengige av hverandre — start hvor du vil.
 
-| # | Mappe | Handler om | Du beviser |
-|---|---|---|---|
-| 1 | [`oppgaver/01-kontekst`](oppgaver/01-kontekst/OPPGAVE.md) | CLAUDE.md, `/clear`, `/context` | Fila **er** oppførselen |
-| 2 | [`oppgaver/02-skills`](oppgaver/02-skills/OPPGAVE.md) | Skills og triggere | Beskrivelsen styrer når den slår inn |
-| 3 | [`oppgaver/03-determinisme`](oppgaver/03-determinisme/OPPGAVE.md) | Hooks og guards | Garanti slår instruks |
-| 4 | [`oppgaver/04-verktoy`](oppgaver/04-verktoy/OPPGAVE.md) | Script i skill vs. MCP | Kode slår forklaring |
-| 5 | [`oppgaver/05-delegering`](oppgaver/05-delegering/OPPGAVE.md) | Subagenter | Isolering, ikke fart |
-| 6 | [`oppgaver/06-loops`](oppgaver/06-loops/OPPGAVE.md) | `/goal` og loopen | Den gir seg ikke før den er i mål |
-| 7 | [`oppgaver/07-pakking`](oppgaver/07-pakking/OPPGAVE.md) | Plugins og marketplace | Alt over i én pakke |
-| 8 | [`oppgaver/08-utenfor-terminalen`](oppgaver/08-utenfor-terminalen/OPPGAVE.md) | `claude -p`, headless | Claude som del av et script |
+| Lurer du på… | Gjør | Du finner ut |
+|---|---|---|
+| «Hvordan får jeg Claude til å huske hvordan *jeg* vil ha ting?» | [1 · Kontekst](oppgaver/01-kontekst/OPPGAVE.md) | at fila **er** oppførselen |
+| «Kan den lære en fremgangsmåte og bruke den av seg selv?» | [2 · Skills](oppgaver/02-skills/OPPGAVE.md) | at beskrivelsen er avtrekkeren |
+| «Hvordan hindrer jeg at den gjør noe dumt?» | [3 · Determinisme](oppgaver/03-determinisme/OPPGAVE.md) | at garanti slår instruks |
+| «Kan den slutte å gjette og bare regne det ut?» | [4 · Verktøy](oppgaver/04-verktoy/OPPGAVE.md) | at kode slår forklaring |
+| «Hvorfor blir den dummere jo lenger jeg holder på?» | [5 · Delegering](oppgaver/05-delegering/OPPGAVE.md) | at subagenter er isolering, ikke fart |
+| «Kan den fortsette til noe faktisk er ferdig?» | [6 · Loops](oppgaver/06-loops/OPPGAVE.md) | at du bestemmer når den får stoppe |
+| «Hvordan gir jeg oppsettet mitt til resten av Kult?» | [7 · Pakking](oppgaver/07-pakking/OPPGAVE.md) | at alt går i én plugin |
+| «Kan den jobbe uten at jeg sitter her?» | [8 · Utenfor terminalen](oppgaver/08-utenfor-terminalen/OPPGAVE.md) | at `claude` bare er en kommando |
+
+**Vet du ikke hva du lurer på?** Ta 1, så 3. De to viser hele poenget: instruks kan overses, garanti kan ikke.
+
+**Er du utvikler og har dårlig tid?** Ta 6. Den er mest tilfredsstillende.
 
 ## Så: bygg noe eget 🛠️
 

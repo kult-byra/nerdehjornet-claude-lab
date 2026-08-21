@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Nerdehjørnet 21.08.2026 — Claude-verktøy",
   "scripts": {
-    "dev": "slidev --open false",
+    "dev": "slidev --open false --port ${PORT:-3030} --remote",
     "build": "slidev build",
     "export": "slidev export"
   },
