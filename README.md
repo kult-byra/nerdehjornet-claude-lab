@@ -16,7 +16,7 @@ Ta en slurk kaffe. Når den er ferdig: **lukk terminalvinduet og åpne et nytt.*
 
 **2. Hent repoet**
 ```bash
-git clone https://github.com/kultbyra/nerdehjornet-claude-lab.git
+git clone https://github.com/kult-byra/nerdehjornet-claude-lab.git
 cd nerdehjornet-claude-lab
 ```
 
